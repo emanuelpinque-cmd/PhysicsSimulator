@@ -1,21 +1,44 @@
 import java.util.HashMap;
 public class Scene {
-Force gravity;
+LinearForce gravity;
 Float time = 0.0f;
 Float step = 1.0f;
-Boolean isRunning = false;
+Boolean isRunning = true;
 HashMap<Integer,ObjectSim> objects;
 Integer lastObjectId = 0;
+Grid actualGrid;
+
 public Scene(){
 objects = new HashMap<>();
 gravity = new LinearForce( 0.0f,-9.8f );
+actualGrid = new Grid(this);
 }
 
 public void addObject(ObjectSim o){
-    lastObjectId++;
-    o.addForce(gravity);
+    o.actualScene = this;
+    o.actualGrid = this.actualGrid;
+    o.updateCell();
+    Force objGravity = new LinearForce(0.0f, this.gravity.compY * o.mass);
+    o.addForce(objGravity);
     objects.put(lastObjectId, o);    
+    o.Objectid = lastObjectId;
+    lastObjectId++;
+   
 
+}
+public void updateNeighborsS(){
+ for(ObjectSim o:objects.values())
+{o.actualCell.updateNeighbors();}}   
+
+public void updateCellS(){
+for(ObjectSim o:objects.values())
+{o.updateCell();}}
+
+public void updateForcesS(){
+for(ObjectSim o : objects.values())
+{
+o.updateForces();    
+}
 }
 
 public void updateSpeedS(){
@@ -32,14 +55,55 @@ o.updatePosition(this.step);
 }
 }
 
+public void sceneInit(){
+    
+}
+
 public void runStep(){
 if(!isRunning)
     return;
+updateForcesS();
 updateSpeedS();
-updatePositionS();    
-
+updateCellS();
+updatePositionS();
 time +=step;
 
 }
+
+public void setGravity(Float f){
+this.gravity.compY = f;}
+
+public void addMatrixCircle(Integer N,Integer M,Float separation,Float speedX,Float speedY,Float posX,Float posY,Float g)
+{
+Float acumPx = 0.0f;
+Float acumPy= 0.0f;
+
+  for(int k=0;k<M;k++){
+       for(int i=0;i<N;i++)
+       {
+        this.addObject(new Circle(0.5f,posX + acumPx-N*separation/2, posY+acumPy-M*separation/2));
+        acumPx+=separation;
+        this.objects.get(this.lastObjectId-1).speedX=speedX;
+        this.objects.get(this.lastObjectId-1).speedY=speedY;
+    }
+        acumPy+=separation;
+        acumPx=0.0f;
+    }
+        
+    
+        
+        for(ObjectSim o:this.objects.values()){
+        for(int i=0;i<this.objects.size();i++)
+        {
+        if(o.Objectid!=i){
+        Circle c =(Circle) this.objects.get(i);
+        o.addForce(new CcColisionForce(c, 10.0f, 1.0f));
+        if(!g.equals(0.0f))
+        {o.addForce(new GravityForce(c, 0.1f));}
+    }}}}
+
+
+
+
 
 }

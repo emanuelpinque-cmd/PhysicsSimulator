@@ -1,2 +1,0 @@
-# PhysicsSimulator
-Simple simulator
