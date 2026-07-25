@@ -96,7 +96,7 @@ int y = (int)(this.CoMy/this.actualGrid.size);
 
 if(this.actualCell == null)
 {
-System.out.println("first cell created");
+//System.out.println("first cell created");
 Cell cell = new Cell(x, y,this.actualGrid);
 this.actualCell=cell;
 this.actualGrid.addCell(cell);
@@ -129,7 +129,7 @@ this.actualCell.updateNeighbors();
 return;
 }
 //Create a cell put the obj and asing the grid to the new Cell
-System.out.println("new cell created");
+//System.out.println("new cell created");
 Cell cell = new Cell(x, y,this.actualGrid);
 //update 
 this.actualCell = cell;
@@ -154,12 +154,12 @@ if(this.checkCell())
 {return;}
 //System.out.println("object pass cell");
 this.actualGrid.moveObject2Cells(this,new Cord(xCell, yCell));
-System.out.println("Objects on neighbordhood of "+this.actualCell.cord.x()+","+this.actualCell.cord.y());
-for(ObjectSim o:this.neightbords)
+//System.out.println("Objects on neighbordhood of "+this.actualCell.cord.x()+","+this.actualCell.cord.y());
+/*for(ObjectSim o:this.neightbords)
 {
 System.out.println(o.Objectid);
-}
-System.out.println("the actual object ("+this.Objectid+") has "+this.cccForces.size()+" colisions forces");
+}*/
+//System.out.println("the actual object ("+this.Objectid+") has "+this.cccForces.size()+" colisions forces");
 
 }
 
@@ -184,12 +184,12 @@ this.actualCell.addObj(this);
 this.actualCell.updateNeighbors();
 this.updateNeighbors();
 this.updateCCcolision();
-System.out.println("Objects on neighbordhood of "+this.actualCell.cord.x()+","+this.actualCell.cord.y());
-for(ObjectSim o:this.neightbords)
+//System.out.println("Objects on neighbordhood of "+this.actualCell.cord.x()+","+this.actualCell.cord.y());
+/*for(ObjectSim o:this.neightbords)
 {
 System.out.println(o.Objectid);
-}
-System.out.println("the actual object ("+this.Objectid+") has "+this.cccForces.size()+" colisions forces");
+}*/
+//System.out.println("the actual object ("+this.Objectid+") has "+this.cccForces.size()+" colisions forces");
 }
 //update the objects neighbords
 public void updateNeighbors(){
@@ -210,8 +210,8 @@ if(!o.equals(this))
 thisc = (Circle) this;
 c =(Circle) o;
 
-System.out.println("added force "+thisc.Objectid+" to "+c.Objectid);
-System.out.println("added force "+c.Objectid+" to "+thisc.Objectid);
+//System.out.println("added force "+thisc.Objectid+" to "+c.Objectid);
+//System.out.println("added force "+c.Objectid+" to "+thisc.Objectid);
 this.addForce(new CcColisionForce(c, 10.0f, 0.0f));    
 c.addForce(new CcColisionForce(thisc, 10.0f, 0.0f)); 
 }
@@ -223,12 +223,12 @@ for(ObjectSim o:neightbords)
 {
 //remove allForces with references to the actualObj
 if(o.cccForces.containsKey(this.Objectid)){
-System.out.println("removed force "+o.Objectid +" to "+this.Objectid);
+//System.out.println("removed force "+o.Objectid +" to "+this.Objectid);
 o.cccForces.remove(this.Objectid);}
 }
 //and clear all colision force of the actual object
 for (CcColisionForce f:cccForces.values()){
-System.out.println("removed force "+f.applyObj.Objectid + "to"+f.targetCircle.Objectid);
+//System.out.println("removed force "+f.applyObj.Objectid + "to"+f.targetCircle.Objectid);
 }
 this.cccForces.clear();
 }

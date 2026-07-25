@@ -15,7 +15,7 @@ public class SceneSim {
         sim.add(panel);
         sim.setVisible(true);
 
-      Integer speedMultiplier = 1; 
+      Integer speedMultiplier = 2; 
 
     Timer timer = new Timer(16, new ActionListener() {
     @Override

@@ -13,7 +13,7 @@ this.cord = new Cord(x,y);
 
 public void addObj(ObjectSim o){
 this.objects.add(o);
-System.out.println("Object "+o.Objectid+" added to cell: " + this.cord.x() +","+ this.cord.y() );
+//System.out.println("Object "+o.Objectid+" added to cell: " + this.cord.x() +","+ this.cord.y() );
 }
 
 public void rmObj(ObjectSim o){
