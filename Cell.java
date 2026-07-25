@@ -13,29 +13,30 @@ this.cord = new Cord(x,y);
 
 public void addObj(ObjectSim o){
 this.objects.add(o);
-System.out.println("added to cell: " + this.cord.x() +","+ this.cord.y() );
+System.out.println("Object "+o.Objectid+" added to cell: " + this.cord.x() +","+ this.cord.y() );
 }
 
 public void rmObj(ObjectSim o){
 this.objects.remove(o);
-if(this.objects.isEmpty() && ActualGrid.garbageCollector)
-{this.ActualGrid.cells.remove(this.cord);}
+//System.out.println("deleted from cell: " + this.cord.x() +","+ this.cord.y() );
 }
 
 //this method can be optimized?
 public void updateNeighbors(){
 this.neighbors.clear();
 for(int i=-1;i<2;i++)   
-{
-
-for(int k=-1;k<2;k++){
+{for(int k=-1;k<2;k++){
 Cord key = new Cord(this.cord.x()+k,this.cord.y()+i);
 if(this.ActualGrid.cells.containsKey(key)){
+//add the cell to the neighbords list
 this.neighbors.add(this.ActualGrid.cells.get(key));
-}
-}
-}
+//tell to these cell update neighbords
+
+}}}
 
 }
+
+
+
 
 }

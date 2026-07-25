@@ -2,7 +2,7 @@ import java.util.HashMap;
 public class Scene {
 LinearForce gravity;
 Float time = 0.0f;
-Float step = 1.0f;
+Float step = 0.1f;
 Boolean isRunning = true;
 HashMap<Integer,ObjectSim> objects;
 Integer lastObjectId = 0;
@@ -15,13 +15,14 @@ actualGrid = new Grid(this);
 }
 
 public void addObject(ObjectSim o){
-    o.actualScene = this;
-    o.actualGrid = this.actualGrid;
-    o.updateCell();
     Force objGravity = new LinearForce(0.0f, this.gravity.compY * o.mass);
     o.addForce(objGravity);
     objects.put(lastObjectId, o);    
     o.Objectid = lastObjectId;
+    o.actualScene = this;
+    o.actualGrid = this.actualGrid;
+    o.initializeCell();
+    
     lastObjectId++;
    
 
@@ -32,7 +33,7 @@ public void updateNeighborsS(){
 
 public void updateCellS(){
 for(ObjectSim o:objects.values())
-{o.updateCell();}}
+{o.updateCell2();}}
 
 public void updateForcesS(){
 for(ObjectSim o : objects.values())
@@ -62,9 +63,11 @@ public void sceneInit(){
 public void runStep(){
 if(!isRunning)
     return;
+
+updateCellS();
 updateForcesS();
 updateSpeedS();
-updateCellS();
+
 updatePositionS();
 time +=step;
 
@@ -81,7 +84,7 @@ Float acumPy= 0.0f;
   for(int k=0;k<M;k++){
        for(int i=0;i<N;i++)
        {
-        this.addObject(new Circle(0.5f,posX + acumPx-N*separation/2, posY+acumPy-M*separation/2));
+        this.addObject(new Circle(1.0f,posX + acumPx-N*separation/2, posY+acumPy-M*separation/2));
         acumPx+=separation;
         this.objects.get(this.lastObjectId-1).speedX=speedX;
         this.objects.get(this.lastObjectId-1).speedY=speedY;
@@ -97,7 +100,7 @@ Float acumPy= 0.0f;
         {
         if(o.Objectid!=i){
         Circle c =(Circle) this.objects.get(i);
-        o.addForce(new CcColisionForce(c, 10.0f, 1.0f));
+        //o.addForce(new CcColisionForce(c, 10.0f, 1.0f));
         if(!g.equals(0.0f))
         {o.addForce(new GravityForce(c, 0.1f));}
     }}}}
