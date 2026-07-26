@@ -48,11 +48,13 @@ this.updateObjects();
 if((this.sObjects.size()<2)||(this.deep>99))
 return;
 
-NE = new Square(this,this.x+this.size,this.y+this.size);
-NO = new Square(this,this.x-this.size,this.y+this.size);
+float center = this.size/2;
 
-SE = new Square(this,this.x+this.size,this.y-this.size);
-SO = new Square(this,this.x-this.size,this.y-this.size);
+NE = new Square(this,this.x+center,this.y+center);
+NO = new Square(this,this.x-center,this.y+center);
+
+SE = new Square(this,this.x+center,this.y-center);
+SO = new Square(this,this.x-center,this.y-center);
 
 }
 
