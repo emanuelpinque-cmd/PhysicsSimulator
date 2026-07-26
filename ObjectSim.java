@@ -212,8 +212,8 @@ c =(Circle) o;
 
 //System.out.println("added force "+thisc.Objectid+" to "+c.Objectid);
 //System.out.println("added force "+c.Objectid+" to "+thisc.Objectid);
-this.addForce(new CcColisionForce(c, 10.0f, 0.0f));    
-c.addForce(new CcColisionForce(thisc, 10.0f, 0.0f)); 
+this.addForce(new CcColisionForce(c, 50.0f,0.0f, 0.0f));    
+c.addForce(new CcColisionForce(thisc, 50.0f, 0.0f,0.0f)); 
 }
 }
 }
