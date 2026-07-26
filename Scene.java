@@ -7,7 +7,7 @@ Boolean isRunning = true;
 HashMap<Integer,ObjectSim> objects;
 Integer lastObjectId = 0;
 Grid actualGrid;
-
+Square universe;
 public Scene(){
 objects = new HashMap<>();
 gravity = new LinearForce( 0.0f,-9.8f );
@@ -105,7 +105,9 @@ Float acumPy= 0.0f;
         {o.addForce(new GravityForce(c, 0.1f));}
     }}}}
 
-
+    public void initSquare(){
+    this.universe = new Square(this, 100.0f);
+    }
 
 
 

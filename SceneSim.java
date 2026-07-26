@@ -11,7 +11,6 @@ public class SceneSim {
         sim.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Cord c = new Cord(0,-3);
-
         SceneFrame panel = new SceneFrame(s);
         sim.add(panel);
         sim.setVisible(true);
