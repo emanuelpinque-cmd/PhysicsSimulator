@@ -1,7 +1,6 @@
 public class GravityForce extends Force {
     ObjectSim targetObj;
     Float G;
-
     public GravityForce(ObjectSim targetObj, Float G) {
         this.targetObj = targetObj;
         this.G = G;

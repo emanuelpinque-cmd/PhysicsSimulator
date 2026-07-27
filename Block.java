@@ -4,7 +4,6 @@ public class Block extends ObjectSim{
     Float sizeX;
     Float sizeY;
     Float sizeZ;
-
 public Block(Float size,Float posx,Float posy)
 {
 super(posx,posy);

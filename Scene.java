@@ -21,6 +21,7 @@ public void addObject(ObjectSim o){
     o.Objectid = lastObjectId;
     o.actualScene = this;
     o.actualGrid = this.actualGrid;
+    o.actualUniverse = this.universe;
     o.initializeCell();
     
     lastObjectId++;
@@ -56,6 +57,14 @@ o.updatePosition(this.step);
 }
 }
 
+public void updateGForcesS(Square universe,Float G){
+//regenerate universe
+initSquare();
+for(ObjectSim o : objects.values())
+{
+o.updateGForces(universe, G);
+}
+}
 public void sceneInit(){
     
 }
@@ -65,13 +74,14 @@ if(!isRunning)
     return;
 
 updateCellS();
+updateGForcesS(this.universe,0.05f);
 updateForcesS();
 updateSpeedS();
-
 updatePositionS();
 time +=step;
 
 }
+
 
 public void setGravity(Float f){
 this.gravity.compY = f;}
@@ -105,8 +115,22 @@ Float acumPy= 0.0f;
         {o.addForce(new GravityForce(c, 0.1f));}
     }}}}
 
+    public void addSquareOfCircles(Integer N,Float separation){
+    Float size = N.floatValue()*separation;
+    if(N%2==0)
+    {
+        for(Float i=1.0f;i<=N;i++)
+        {
+        for(Float k=1.0f;k<=N;k++)
+        this.addObject(new Circle(1.0f,(-(separation/2)-size/2)+i*separation, (-(separation/2)-size/2)+k*separation));
+        }
+    }        
+    
+
+    }
+
     public void initSquare(){
-    this.universe = new Square(this, 100.0f);
+    this.universe = new Square(this, 256.0f);
     }
 
 

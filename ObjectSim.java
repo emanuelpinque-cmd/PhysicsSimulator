@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 public abstract class ObjectSim{
 Float CoMx;
 Float CoMy;
@@ -12,6 +13,8 @@ Float speedY;
 
 //BetterLogicWithArrayList?
 ArrayList<Force> forces;
+//ArrayList of gravityVirtualForces
+ArrayList<VirtualGravityForce> virtualGForces;
 //HashMap with the reference of the objId
 HashMap<Integer,CcColisionForce> cccForces;
 //this should be next
@@ -19,6 +22,8 @@ Force sum;
 Scene actualScene;
 Grid actualGrid;
 Cell actualCell;
+Square actualUniverse;
+Square actualSquare;
 Boolean isFixed=false;
 Integer Objectid;
 Integer xCell;
@@ -33,15 +38,18 @@ this.speedY=0.0f;
 this.sum = new LinearForce(0.0f,0.0f   );
 this.forces = new ArrayList<>();
 this.cccForces = new HashMap<>();
+this.virtualGForces = new ArrayList<>();
 this.neightbords = new ArrayList<>();
 }
 
 public void addForce(Force f){
 f.applyObj = this;
 if(f instanceof CcColisionForce)
-{
-CcColisionForce cccForce = (CcColisionForce)f;
+{CcColisionForce cccForce = (CcColisionForce)f;
 cccForces.put(cccForce.targetCircle.Objectid,cccForce);}
+else if(f instanceof VirtualGravityForce){
+VirtualGravityForce virtualGforce = (VirtualGravityForce)f;
+virtualGForces.add(virtualGforce);}
 else{forces.add(f);}
 this.updateSum();
 }
@@ -51,6 +59,7 @@ public void updateSum(){
     Float totalY = 0.0f;
     ArrayList<Force> totalForces = new ArrayList<>(forces);
     totalForces.addAll(cccForces.values());
+    totalForces.addAll(virtualGForces);
     for (Force f : totalForces) {
         totalX += f.compX;
         totalY += f.compY;
@@ -75,6 +84,9 @@ public void updateForces(){
         f.update();
     }
     for(CcColisionForce f : cccForces.values()){ 
+        f.update();
+    }
+     for(VirtualGravityForce f : virtualGForces){ 
         f.update();
     }
     this.updateSum();
@@ -232,5 +244,87 @@ for (CcColisionForce f:cccForces.values()){
 }
 this.cccForces.clear();
 }
+public void updateGForces(Square u,Float G){
+this.virtualGForces.clear();
+addTGForces(u, G);
+} 
+
+public void addTGForces(Square u,Float G){
+if(G==0.0f)
+{return;}
+
+  if(u.NE == null){
+        if(!u.sObjects.isEmpty() && !this.actualSquare.equals(u)){
+            this.addForce(new VirtualGravityForce(u.CoMx, u.CoMy, G, u.mass));
+        }
+        return;
+    }
+
+Float dx = u.CoMx-this.CoMx;
+Float dy = u.CoMy-this.CoMy;
+Float r2 = dx*dx+dy*dy;
+Float r = (float) Math.sqrt(r2);
+
+
+//NE
+if(u.NE.sObjects.size()<2){
+    if(u.NE.sObjects.size()==1)
+    {
+        if(!this.actualSquare.equals(u.NE))
+        {this.addForce(new VirtualGravityForce(u.NE.CoMx,u.NE.CoMy,G,u.NE.mass));}
+    }
+}
+else if((u.NE.size/r)<u.theta){
+//puntual particle
+this.addForce(new VirtualGravityForce(u.NE.CoMx,u.NE.CoMy,G,u.NE.mass));
+}
+else{addTGForces(u.NE,G);}
+
+
+//NO
+if(u.NO.sObjects.size()<2){
+        if(u.NO.sObjects.size()==1)
+    {
+        if(!this.actualSquare.equals(u.NO))
+        {this.addForce(new VirtualGravityForce(u.NO.CoMx,u.NO.CoMy,G,u.NO.mass));}
+    }
+}
+else if((u.NO.size/r)<u.theta){
+//puntual particle
+this.addForce(new VirtualGravityForce(u.NO.CoMx,u.NO.CoMy,G,u.NO.mass));
+}
+else{addTGForces(u.NO,G);}
+
+//SE
+if(u.SE.sObjects.size()<2){
+        if(u.SE.sObjects.size()==1)
+    {
+        if(!this.actualSquare.equals(u.SE))
+        {this.addForce(new VirtualGravityForce(u.SE.CoMx,u.SE.CoMy,G,u.SE.mass));}
+    }
+}
+else if((u.SE.size/r)<u.theta){
+//puntual particle
+this.addForce(new VirtualGravityForce(u.SE.CoMx,u.SE.CoMy,G,u.SE.mass));
+}
+else{addTGForces(u.SE,G);}
+
+//SO
+if(u.SO.sObjects.size()<2){
+   if(u.SO.sObjects.size()==1)
+    {
+        if(!this.actualSquare.equals(u.SO))
+        {this.addForce(new VirtualGravityForce(u.SO.CoMx,u.SO.CoMy,G,u.SO.mass));}
+    }
+}
+else if((u.SO.size/r)<u.theta){
+//puntual particle
+this.addForce(new VirtualGravityForce(u.SO.CoMx,u.SO.CoMy,G,u.SO.mass));
+}
+else{addTGForces(u.SO,G);}
+
+}
+
+
 public abstract void draw(Graphics g, int panelWidth, int panelHeight);
 }
