@@ -1,9 +1,9 @@
 public class CcColisionForce extends Force {
     Circle targetCircle;
-    Float cNormal;
-    Float cTangent;
-    Float k;
-    public CcColisionForce(Circle targetCircle,Float k, Float cNormal,Float cTangent) {
+    float cNormal;
+    float cTangent;
+    float k;
+    public CcColisionForce(Circle targetCircle,float k, float cNormal,float cTangent) {
         this.targetCircle = targetCircle;
         this.k=k;
         this.cNormal = cNormal;
@@ -15,12 +15,12 @@ public class CcColisionForce extends Force {
 public void update() {
     Circle applyCircle = (Circle) this.applyObj; 
 
-    Float dx = applyCircle.CoMx - this.targetCircle.CoMx; 
-    Float dy = applyCircle.CoMy - this.targetCircle.CoMy;
-    Float r2 = dx*dx + dy*dy;
-    Float r = (float) Math.sqrt(r2);
+    float dx = applyCircle.CoMx - this.targetCircle.CoMx; 
+    float dy = applyCircle.CoMy - this.targetCircle.CoMy;
+    float r2 = dx*dx + dy*dy;
+    float r = (float)Math.sqrt(r2);
 
-    Float rsum = applyCircle.radius + targetCircle.radius;
+    float rsum = applyCircle.radius + targetCircle.radius;
 
     if (rsum < r) {
         this.compX = 0.0f;
@@ -28,25 +28,25 @@ public void update() {
         return;
     }
 
-    Float penetration = rsum - r;
-    Float magnitud = k * penetration;
+    float penetration = rsum - r;
+    float magnitud = k * penetration;
 
     //normal vector
-    Float nx = dx / r; 
-    Float ny = dy / r;
+    float nx = dx / r; 
+    float ny = dy / r;
 
     //tangent vector
-    Float tx = -ny; 
-    Float ty = nx;
+    float tx = -ny; 
+    float ty = nx;
 
-Float relVelX = applyCircle.speedX - targetCircle.speedX;
-Float relVelY = applyCircle.speedY - targetCircle.speedY;
+float relVelX = applyCircle.speedX - targetCircle.speedX;
+float relVelY = applyCircle.speedY - targetCircle.speedY;
 
-Float relVelNormal = relVelX*nx + relVelY*ny;
-Float relVelTangent = relVelX*tx + relVelY*ty;
+float relVelNormal = relVelX*nx + relVelY*ny;
+float relVelTangent = relVelX*tx + relVelY*ty;
 
-Float dampNormal = cNormal * relVelNormal;
-Float dampTangent = cTangent * relVelTangent;
+float dampNormal = cNormal * relVelNormal;
+float dampTangent = cTangent * relVelTangent;
 
 this.compX = magnitud*nx - dampNormal*nx - dampTangent*tx;
 this.compY = magnitud*ny - dampNormal*ny - dampTangent*ty;

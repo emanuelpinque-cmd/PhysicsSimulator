@@ -1,7 +1,7 @@
 public class DampingForce extends Force{
-Float rho;
+float rho;
 
-public DampingForce(Float rho){
+public DampingForce(float rho){
 this.rho=rho;    
 }
 @Override

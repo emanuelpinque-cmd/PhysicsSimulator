@@ -1,8 +1,8 @@
 import java.util.HashMap;
 public class Scene {
 LinearForce gravity;
-Float time = 0.0f;
-Float step = 0.1f;
+float time = 0.0f;
+float step = 0.1f;
 Boolean isRunning = true;
 HashMap<Integer,ObjectSim> objects;
 Integer lastObjectId = 0;
@@ -57,7 +57,7 @@ o.updatePosition(this.step);
 }
 }
 
-public void updateGForcesS(Square universe,Float G){
+public void updateGForcesS(Square universe,float G){
 //regenerate universe
 initSquare();
 for(ObjectSim o : objects.values())
@@ -74,7 +74,7 @@ if(!isRunning)
     return;
 
 updateCellS();
-updateGForcesS(this.universe,0.05f);
+updateGForcesS(this.universe,0.1f);
 updateForcesS();
 updateSpeedS();
 updatePositionS();
@@ -83,13 +83,13 @@ time +=step;
 }
 
 
-public void setGravity(Float f){
+public void setGravity(float f){
 this.gravity.compY = f;}
 
-public void addMatrixCircle(Integer N,Integer M,Float separation,Float speedX,Float speedY,Float posX,Float posY,Float g)
+public void addMatrixCircle(Integer N,Integer M,Float separation,float speedX,float speedY,float posX,float posY,float g)
 {
-Float acumPx = 0.0f;
-Float acumPy= 0.0f;
+float acumPx = 0.0f;
+float acumPy= 0.0f;
 
   for(int k=0;k<M;k++){
        for(int i=0;i<N;i++)
@@ -111,26 +111,31 @@ Float acumPy= 0.0f;
         if(o.Objectid!=i){
         Circle c =(Circle) this.objects.get(i);
         //o.addForce(new CcColisionForce(c, 10.0f, 1.0f));
-        if(!g.equals(0.0f))
+        if(g!=0.0f)
         {o.addForce(new GravityForce(c, 0.1f));}
     }}}}
 
-    public void addSquareOfCircles(Integer N,Float separation){
-    Float size = N.floatValue()*separation;
+    public void addSquareOfCircles(Integer N,float separation,float posx,float posy,float speedx){
+    float size = N.floatValue()*separation;
     if(N%2==0)
     {
-        for(Float i=1.0f;i<=N;i++)
+        for(float i=1.0f;i<=N;i++)
         {
-        for(Float k=1.0f;k<=N;k++)
-        this.addObject(new Circle(1.0f,(-(separation/2)-size/2)+i*separation, (-(separation/2)-size/2)+k*separation));
-        }
+        for(float k=1.0f;k<=N;k++)
+        {Circle c =new Circle(1.0f,(-(separation/2)-size/2)+i*separation+posx, (-(separation/2)-size/2)+k*separation+posy);
+        c.speedX = speedx;
+        this.addObject(c);
+        
+    }
+
+    }
     }        
     
 
     }
 
     public void initSquare(){
-    this.universe = new Square(this, 256.0f);
+    this.universe = new Square(this, 4096.0f);
     }
 
 

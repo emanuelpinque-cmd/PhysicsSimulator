@@ -1,9 +1,9 @@
 public class SpringForce extends Force{
-Float springX;
-Float springY;
-Float k;
-Float c;
-SpringForce(Float x,Float y,Float k,float c)    
+float springX;
+float springY;
+float k;
+float c;
+SpringForce(float x,float y,float k,float c)    
 {
 this.springX = x;
 this.springY = y;

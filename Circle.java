@@ -2,9 +2,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Circle extends ObjectSim {
-    Float radius;
+    float radius;
 
-    public Circle(Float radius, Float posx, Float posy) {
+    public Circle(float radius, float posx, float posy) {
         super(posx, posy);
         this.radius = radius;
         this.density = 1.0f;
@@ -15,7 +15,7 @@ public class Circle extends ObjectSim {
     @Override
     public void draw(Graphics g, int panelWidth, int panelHeight) {
         g.setColor(Color.BLACK);
-        int escala = 4;
+        int escala = 2;
         int centerX = panelWidth / 2;
         int centerY = panelHeight / 2;
         int px = (int)(this.CoMx * escala) + centerX;

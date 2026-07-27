@@ -2,7 +2,7 @@
 import java.util.HashMap;
 public class Grid {
 Scene actualScene;
-Float size=4.0f;
+float size=4.0f;
 HashMap<Cord,Cell> cells;
 Boolean garbageCollector = true;
 

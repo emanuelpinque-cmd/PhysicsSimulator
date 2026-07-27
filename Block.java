@@ -1,10 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
 public class Block extends ObjectSim{
-    Float sizeX;
-    Float sizeY;
-    Float sizeZ;
-public Block(Float size,Float posx,Float posy)
+    float sizeX;
+    float sizeY;
+    float sizeZ;
+public Block(float size,float posx,float posy)
 {
 super(posx,posy);
 this.sizeX=size;

@@ -6,19 +6,19 @@ Square NO;
 Square SE;
 Square SO;
 Square dad;
-Float x;
-Float y;
-Float CoMx;
-Float CoMy;
-Float mass;
-Float size;
+float x;
+float y;
+float CoMx;
+float CoMy;
+float mass;
+float size;
 Integer deep;
 ArrayList<ObjectSim> sObjects;
 Scene actualScene;
-Float theta=0.5f;
-Integer cut=10;
+float theta=0.256f;
+Integer cut=100;
 //Universe constructor
-public Square(Scene s,Float size){
+public Square(Scene s,float size){
 this.x=0.0f;    
 this.y=0.0f;
 this.actualScene=s;
@@ -29,7 +29,7 @@ this.deep=0;
 sObjects = new ArrayList<>(s.objects.values());
 this.getCoMs();
 
-float center = size/4;
+float center = size/2;
 
 NE = new Square(this,center,center);
 NO = new Square(this,-center,center);
@@ -41,7 +41,7 @@ SO = new Square(this,-center,-center);
 private void asingObj(){
 this.sObjects.get(0).actualSquare=this;}
 
-private Square(Square dad,Float x,Float y){
+private Square(Square dad,float x,float y){
 this.x=x;
 this.y=y;
 this.dad=dad;
@@ -92,8 +92,8 @@ this.getCoMs();
 private void getCoMs(){
 if(this.sObjects.isEmpty()){
 return;}
-Float sumX=0.0f;
-Float sumY=0.0f;
+float sumX=0.0f;
+float sumY=0.0f;
 this.mass=0.0f;
 //get the total mass
 for(ObjectSim o:this.sObjects){

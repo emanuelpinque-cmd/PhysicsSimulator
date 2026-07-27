@@ -3,13 +3,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class ObjectSim{
-Float CoMx;
-Float CoMy;
-Float mass;
-Float density;
-Float volume;
-Float speedX;
-Float speedY;
+float CoMx;
+float CoMy;
+float mass;
+float density;
+float volume;
+float speedX;
+float speedY;
 
 //BetterLogicWithArrayList?
 ArrayList<Force> forces;
@@ -18,7 +18,7 @@ ArrayList<VirtualGravityForce> virtualGForces;
 //HashMap with the reference of the objId
 HashMap<Integer,CcColisionForce> cccForces;
 //this should be next
-Force sum;
+LinearForce sum;
 Scene actualScene;
 Grid actualGrid;
 Cell actualCell;
@@ -55,8 +55,8 @@ this.updateSum();
 }
 
 public void updateSum(){
-    Float totalX = 0.0f;
-    Float totalY = 0.0f;
+    float totalX = 0.0f;
+    float totalY = 0.0f;
     ArrayList<Force> totalForces = new ArrayList<>(forces);
     totalForces.addAll(cccForces.values());
     totalForces.addAll(virtualGForces);
@@ -224,8 +224,8 @@ c =(Circle) o;
 
 //System.out.println("added force "+thisc.Objectid+" to "+c.Objectid);
 //System.out.println("added force "+c.Objectid+" to "+thisc.Objectid);
-this.addForce(new CcColisionForce(c, 50.0f,0.0f, 0.0f));    
-c.addForce(new CcColisionForce(thisc, 50.0f, 0.0f,0.0f)); 
+this.addForce(new CcColisionForce(c, 10.0f,0.0f, 0.0f));    
+c.addForce(new CcColisionForce(thisc, 10.0f, 0.0f,0.0f)); 
 }
 }
 }
@@ -244,12 +244,12 @@ for (CcColisionForce f:cccForces.values()){
 }
 this.cccForces.clear();
 }
-public void updateGForces(Square u,Float G){
+public void updateGForces(Square u,float G){
 this.virtualGForces.clear();
 addTGForces(u, G);
 } 
 
-public void addTGForces(Square u,Float G){
+public void addTGForces(Square u,float G){
 if(G==0.0f)
 {return;}
 
@@ -260,10 +260,10 @@ if(G==0.0f)
         return;
     }
 
-Float dx = u.CoMx-this.CoMx;
-Float dy = u.CoMy-this.CoMy;
-Float r2 = dx*dx+dy*dy;
-Float r = (float) Math.sqrt(r2);
+float dx = u.CoMx-this.CoMx;
+float dy = u.CoMy-this.CoMy;
+float r2 = dx*dx+dy*dy;
+float r = (float) Math.sqrt(r2);
 
 
 //NE

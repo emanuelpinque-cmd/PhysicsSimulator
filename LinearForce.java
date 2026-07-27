@@ -1,6 +1,6 @@
 public class LinearForce extends Force{
 
-LinearForce(Float compX,Float compY)
+LinearForce(float compX,float compY)
 {
 this.compX=compX;
 this.compY=compY;
