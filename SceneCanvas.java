@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 
 public class SceneCanvas implements Runnable {
     Scene s;
-    int delay = 16;
+    int delay;
     public SceneCanvas(Scene s,int delay) {
         this.s = s;
         this.delay = delay;

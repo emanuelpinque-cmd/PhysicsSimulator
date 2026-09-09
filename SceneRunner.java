@@ -1,7 +1,7 @@
 public class SceneRunner implements Runnable {
-int delay = 300;
+int delay;
 Scene s;
-
+float g = 0.1f;
 public SceneRunner(Scene s,int delay) {
 
 
@@ -16,7 +16,8 @@ public SceneRunner(Scene s,int delay) {
         s.updateCellS();
         if(!s.isRunning)
         return;
-
+    if(s.gravityOpt)
+       {s.updateGForcesS(s.universe,g);}
     s.updateForcesS();
     s.updateSpeedS();
     s.updatePositionS();
