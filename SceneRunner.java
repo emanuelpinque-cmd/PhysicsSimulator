@@ -17,7 +17,7 @@ public SceneRunner(Scene s,int delay) {
         if(!s.isRunning)
         return;
 
-    //s.updateForcesS();
+    s.updateForcesS();
     s.updateSpeedS();
     s.updatePositionS();
     s.time +=s.step;

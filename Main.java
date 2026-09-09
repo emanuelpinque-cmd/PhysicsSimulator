@@ -14,14 +14,11 @@ public class Main {
       System.out.println("");
       SceneCanvas sceneCanvas = new SceneCanvas(s,16);
       SceneRunner sceneRunner = new SceneRunner(s,1);
-        GridRunner gridRunner= new GridRunner(s,1);
       Thread canvasT = new Thread(sceneCanvas);
       Thread runnerT = new Thread(sceneRunner);
-      Thread gridThread = new Thread(gridRunner);
 
       canvasT.start();
       runnerT.start();
-      gridThread.start();
 
     }
 }
