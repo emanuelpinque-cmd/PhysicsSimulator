@@ -1,8 +1,8 @@
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class SceneCanvas implements Runnable {
     Scene s;
-    int delay = 100;
+    int delay = 16;
     public SceneCanvas(Scene s,int delay) {
         this.s = s;
         this.delay = delay;

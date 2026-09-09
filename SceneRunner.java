@@ -1,5 +1,5 @@
 public class SceneRunner implements Runnable {
-int delay = 100;
+int delay = 300;
 Scene s;
 
 public SceneRunner(Scene s,int delay) {
