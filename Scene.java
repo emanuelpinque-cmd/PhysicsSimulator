@@ -4,6 +4,7 @@ LinearForce gravity;
 float time = 0.0f;
 float step = 0.1f;
 Boolean isRunning = true;
+Boolean gravityOpt =  false;
 HashMap<Integer,ObjectSim> objects;
 Integer lastObjectId = 0;
 Grid actualGrid;
@@ -21,7 +22,9 @@ public void addObject(ObjectSim o){
     o.Objectid = lastObjectId;
     o.actualScene = this;
     o.actualGrid = this.actualGrid;
-    o.actualUniverse = this.universe;
+    if(gravityOpt == true){
+    o.actualUniverse = this.universe;}
+
     o.initializeCell();
     
     lastObjectId++;
@@ -74,7 +77,10 @@ if(!isRunning)
     return;
 
 updateCellS();
+if(gravityOpt == true ){
 updateGForcesS(this.universe,0.1f);
+}
+
 updateForcesS();
 updateSpeedS();
 updatePositionS();

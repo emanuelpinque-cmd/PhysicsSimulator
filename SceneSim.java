@@ -4,12 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 public class SceneSim {
+
+
     public SceneSim(Scene s) {
         JFrame sim = new JFrame();
         sim.setSize(400, 400);
         sim.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Cord c = new Cord(0,-3);
+        //Cord c = new Cord(0,-3);
         SceneFrame panel = new SceneFrame(s);
         sim.add(panel);
         sim.setVisible(true);

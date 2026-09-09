@@ -1,16 +1,27 @@
 public class Main {
     public static void main(String[] args) {
-      Scene s = new Scene();
-      s.setGravity(0.0f);
-      s.addSquareOfCircles(50, 2.0f,-200.0f,0.0f,5.0f);
-       s.addSquareOfCircles(50, 2.0f,200.0f,40.0f,-5.0f);
+
+
+        Scene s = new Scene();
+
+        s.setGravity(0.0f);
+        s.addSquareOfCircles(50, 2.0f,-150.0f,20.0f,1.0f);
+        s.addSquareOfCircles(50, 2.0f,150.0f,-20.05f,-1.0f);
       /*for(ObjectSim o:s.objects.values()){
       System.out.println(o.Objectid+" "+"("+o.CoMx+"," + o.CoMy + ")");
       }*/
-      s.initSquare();
+      //s.initSquare();
       System.out.println("");
-      SceneSim sim = new SceneSim(s);
-      
-      
+      SceneCanvas sceneCanvas = new SceneCanvas(s,16);
+      SceneRunner sceneRunner = new SceneRunner(s,1);
+        GridRunner gridRunner= new GridRunner(s,1);
+      Thread canvasT = new Thread(sceneCanvas);
+      Thread runnerT = new Thread(sceneRunner);
+      Thread gridThread = new Thread(gridRunner);
+
+      canvasT.start();
+      runnerT.start();
+      gridThread.start();
+
     }
 }

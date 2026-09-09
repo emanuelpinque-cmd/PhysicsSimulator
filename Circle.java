@@ -15,7 +15,7 @@ public class Circle extends ObjectSim {
     @Override
     public void draw(Graphics g, int panelWidth, int panelHeight) {
         g.setColor(Color.BLACK);
-        int escala = 2;
+        int escala = 4;
         int centerX = panelWidth / 2;
         int centerY = panelHeight / 2;
         int px = (int)(this.CoMx * escala) + centerX;
